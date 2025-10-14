@@ -8,17 +8,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// connect to MongoDB
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error(err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
-// test route
+// ✅ Test route
 app.get('/api/test', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// serve frontend build
+// Add other routes here, e.g., /api/books
+
+// Serve React frontend (catch-all)
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
