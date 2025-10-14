@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // test route
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
+  res.json({ status: 'ok' });
 });
 
 // serve frontend build
