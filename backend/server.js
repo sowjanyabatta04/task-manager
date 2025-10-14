@@ -11,16 +11,17 @@ app.use(express.json());
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.error(err));
 
-// ✅ Test route
+// ✅ Test route must come BEFORE catch-all
 app.get('/api/test', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Add other routes here, e.g., /api/books
+// Example: your /api/books routes here
+// app.use('/api/books', booksRouter);
 
-// Serve React frontend (catch-all)
+// Serve React frontend for all other routes
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
